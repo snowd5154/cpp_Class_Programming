@@ -1,0 +1,85 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class memberType {
+public: string Name;
+	  string ID;
+	  int no_books;
+	  float amount;
+	  memberType() {
+		  Name = " ";
+		  ID = " ";
+		  no_books = 0;
+		  amount = 0.0;
+	  }
+
+public: void set(string name, string id, int no, float a);
+	  void modify(string name);
+	  void modify(int no, float a);
+	  void show();
+
+};
+
+void memberType::set(string n, string id, int no, float a) {
+
+	Name = n;
+	ID = id;
+	no_books = no;
+	amount = a;
+
+}
+
+void memberType::modify(string name) {
+	Name = name;
+
+}
+void memberType::modify(int no, float a) {
+
+	no_books = no;
+	amount = a;
+
+}
+
+void memberType::show() {
+
+	cout << "Person's Name is: " << Name << endl;
+	cout << "Number of Books: " << no_books << endl;
+	cout << "Amount Spent: " << amount << endl;
+
+}
+
+//cout<< "-------------------------" << endl << endl;
+
+#include<iostream>
+#include<string>
+using namespace std;
+#include<memberType.h>
+void main() {
+
+	string n, id;
+	int books;
+	float a;
+	//Object creation will invokee constructor
+	memberType obj;
+	//Inputing values
+	cout << "Enter name";
+	cin >> n;
+	cout << "Enter Id:";
+	cin >> id;
+	cout << "Enter no of books:";
+	cin >> books;
+	cout << "Enter amount: ";
+	cin >> a;
+	obj.set(n, id, books, a);
+	obj.show();
+	cout << "Enter updated name: ";
+	cin >> n;
+	obj.modify(n);
+	obj.show();
+	cout << "Enter updated no of books";
+	cin >> books;
+	obj.modify(books, a);
+	obj.show();
+	system("pause");
+
+}//End of main
