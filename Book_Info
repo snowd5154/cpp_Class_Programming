@@ -1,0 +1,324 @@
+//c++ code
+
+#include<iostream>
+#include "bookType.h"
+using namespace std;
+//constructor bookType
+bookType::bookType()
+{
+title = "";
+for (int i = 0; i < 4; i++)
+  authors[i] = "";
+publisher = "";
+ISBN = "";
+price = 0;
+copies = 0;
+authorsNo = 0;
+}
+//setter and getter methods
+//Method definition of setTitle
+void bookType::setTitle(string myTitle)
+{
+title = myTitle;
+}
+//Method definition of getTitle
+string bookType::getTile()
+{
+return title;
+}
+//Method definition of compareTitle
+bool bookType::compareTitle(string otherTitle)
+{
+return (title.compare(otherTitle) == 0);
+}
+//Method definition of setAuthor
+void bookType::setAuthor(string myAuthor)
+{
+authorsNo = authorsNo % 4;
+if (myAuthor.compare("") == 0)
+  return;
+else
+{
+  authors[authorsNo] = myAuthor;
+
+  authorsNo++;
+}
+}
+//Method definition of showAuthors
+void bookType::showAuthors()
+{
+for (int i = 0; i < authorsNo; i++)
+  cout << authors[i] << ", ";
+cout << "\r\r";
+}
+//Method definition of updateAuthor
+void bookType::updateAuthor(string myAuthor)
+{
+setAuthor(myAuthor);
+}
+//Method definition of getAuthors
+string *bookType::getAuthors()
+{
+return authors;
+}
+//Method definition of setCopies
+void bookType::setCopies(int myCopies)
+{
+copies = myCopies;
+}
+//Method definition of showCopies
+void bookType::showCopies()
+{
+cout << "\n\tThe number of copies " << copies;
+}
+//Method definition of updateCopies
+void bookType::updateCopies(int myCopies)
+{
+copies = myCopies;
+}
+//Method definition of getCopies
+int bookType::getCopies()
+{
+return copies;
+}
+//Method definition of setPublisher
+void bookType::setPublisher(string myPublisher)
+{
+publisher = myPublisher;
+}
+//Method definition of showPublisher
+void bookType::showPublisher()
+{
+cout << publisher;
+}
+//Method definition of updatePublisher
+void bookType::updatePublisher(string myPublisher)
+{
+publisher = myPublisher;
+}
+//Method definition of getPublisher
+string bookType::getPublisher()
+{
+return publisher;
+} // end function getPublisher
+
+void bookType::setISBN(string myISBN)
+{
+ISBN = myISBN;
+}
+//Method definition of showISBN
+void bookType::showISBN()
+{
+cout << ISBN;
+}
+//Method definition of updateISBN
+void bookType::updateISBN(string myISBN)
+{
+ISBN = myISBN;
+}
+//Method definition of getISBN
+string bookType::getISBN()
+{
+return ISBN;
+}
+//Method definition of compareISBN
+bool bookType::compareISBN(string myISBN)
+{
+return (myISBN.compare(ISBN) == 0);
+}
+//Method definition of setPrice
+void bookType::setPrice(double myPrice)
+{
+price = myPrice;
+}
+//Method definition of showPrice
+void bookType::showPrice()
+{
+cout << "\n\tThe book price is " << price;
+}
+//Method definition of updatePrice
+void bookType::updatePrice(double myPrice)
+{
+price = myPrice;
+}//Method definition of getPrice
+double bookType::getPrice()
+{
+return price;
+}
+
+//b)bookType.h
+//bookType Header FIle
+#include<string>
+using namespace std;
+//class definition of bookType
+class bookType
+{
+public:
+bookType();
+void setTitle(string);
+string getTile();
+bool compareTitle(string);
+
+void setAuthor(string = "");
+void showAuthors();
+void updateAuthor(string = "");
+string *getAuthors();
+
+void setCopies(int);
+void showCopies();
+void updateCopies(int);
+int getCopies();
+
+
+void setPublisher(string);
+void showPublisher();
+void updatePublisher(string);
+string getPublisher();
+
+void setISBN(string);
+void showISBN();
+void updateISBN(string);
+string getISBN();
+bool compareISBN(string);
+
+void setPrice(double);
+void showPrice();
+void updatePrice(double);
+double getPrice();
+
+private:
+string title;
+string authors[4];
+string publisher;
+string ISBN;
+double price;
+int copies;
+int authorsNo;
+};
+
+//c) main TEST class
+//Header file section
+#include<iostream>
+#include "bookType.h"
+using namespace std;
+// Program begins with a main function
+int main()
+{
+//Prompt the message on a screen
+cout << "\n***********Books as an ADT bookType*************";
+
+//Declare an array of 100
+//components of type bookType
+bookType numBooks[100];
+
+//Declare variables
+string str;
+double price;
+int copies;
+char userChoice;
+int count = 0;
+
+do
+{
+  //Prompt and read the input from the user
+  cout << "\n\n\tEnter the book Title: ";
+  cin >> str;
+  numBooks[count].setTitle(str);
+  int j = 0;
+  do
+  {
+   cout << "\tEnter the author Name : ";
+   cin >> str;
+   numBooks[count].setAuthor(str);
+   j++;
+   cout << "\n\tMore authors ( Y/N ) ? ";
+   cin >> userChoice;
+  } while (j < 4 && tolower(userChoice) != 'n');
+  cout << "\tEnter publisher name: ";
+  cin >> str;
+  numBooks[count].setPublisher(str);
+  cout << "\tEnter the ISBN Number: ";
+  cin >> str;
+  numBooks[count].setISBN(str);
+  cout << "\n\tEnter the price: ";
+  cin >> price;
+  numBooks[count].setPrice(price);
+
+  // Prompt and read number of copies
+  cout << "\tEnter copies : ";
+  cin >> copies;
+  numBooks[count].setCopies(copies);
+  count++;
+  cout << "\n\tEnter more books (Y/N) ? ";
+  cin >> userChoice;
+  //    Convert to lower case
+  if (userChoice < 92)
+   userChoice += 32;
+
+} while (userChoice != 'n');    //    end do-while
+
+do
+{
+  //    search for a book using title and ISBN
+  cout << "\n\tSearch for a book by its title: T";
+  cout << "\n\tSearch for a book by its ISBN : I";
+  cout << "\n\tUpdate the number of copies   : U";
+  cout << "\n\tExit                          : E";
+  cout << "\n\n\tEnter your choice           : ";
+  cin >> userChoice;
+  int i;
+  char T, I, U, E;
+  switch (toupper(userChoice))
+  {
+   //    Search for a book by its title
+  case 'T': cout << "\n\tEnter book title to search : ";
+   cin >> str;
+
+   for (i = 0; i < count; i++)
+    if (numBooks[i].compareTitle(str))
+     break;
+
+   if (i == count)
+    cout << "\n\tBook not found.";
+   else
+    cout << "\n\tBook found.";
+   break;
+
+   //    search for a book by its ISBN number
+  case 'I':cout << "\n\tEnter ISBN number to search : ";
+   cin >> str;
+
+   for (i = 0; i < count; i++)
+    if (numBooks[i].compareISBN(str))
+     break;
+
+   if (i == count)
+    cout << "\n\tBook not found.";
+   else
+    cout << "\n\tBook found.";
+
+   break;
+
+   // Update the copies of the book
+  case 'U':    cout << "\n\tEnter book title to search : ";
+   cin >> str;
+
+   for (i = 0; i < count; i++)
+    if (numBooks[i].compareTitle(str))
+     break;
+
+   if (i == count)
+    cout << "\n\tBook not found.";
+   else
+   {
+    cout << "\n\tEnter the number of copies ";
+    cin >> copies;
+    numBooks[i].updateCopies(copies);
+   } break;
+   //For exit the choice
+  case 'E':
+   return 0;
+  }
+} while (true);
+return 0;
+}
